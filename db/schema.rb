@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.0].define(version: 2022_06_12_152414) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_12_170820) do
   create_table "inventories", force: :cascade do |t|
     t.string "product_name"
     t.decimal "price"
@@ -7,6 +7,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_12_152414) do
     t.string "vendor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

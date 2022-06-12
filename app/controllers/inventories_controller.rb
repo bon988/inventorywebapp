@@ -1,5 +1,7 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [ :index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /inventories or /inventories.json
   def index
@@ -12,7 +14,9 @@ class InventoriesController < ApplicationController
 
   # GET /inventories/new
   def new
-    @inventory = Inventory.new
+    # @inventory = Inventory.new
+    @inventory = current_user.inventories.build
+
   end
 
   # GET /inventories/1/edit
@@ -21,7 +25,8 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    @inventory = Inventory.new(inventory_params)
+    # @inventory = Inventory.new(inventory_params)
+    @inventory = current_user.inventories.build(inventory_params)
 
     respond_to do |format|
       if @inventory.save
@@ -57,6 +62,11 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def correct_user
+    @inventory = current_user.inventories.find_by(id: params[:id])
+    redirect_to inventories_path, notice: "Not authorized to edit this product" if @inventory.nil?
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inventory
@@ -66,6 +76,6 @@ class InventoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def inventory_params
-      params.require(:inventory).permit(:product_name, :price, :quantity, :category, :vendor)
+      params.require(:inventory).permit(:product_name, :price, :quantity, :category, :vendor, :user_id)
     end
 end
