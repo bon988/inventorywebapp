@@ -1,0 +1,8 @@
+<h1>Editing Product</h1>
+<br/>
+<%= render 'form', inventory: @inventory %>
+
+<br/>
+<%= link_to 'Show this inventory', @inventory, class:"btn btn-secondary" %>
+<%= link_to 'Delete', @inventory, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<%= link_to 'Back', inventories_path, class:"btn btn-dark" %>

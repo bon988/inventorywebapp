@@ -1,0 +1,9 @@
+<%= render @inventory %>
+<div>
+  <%= link_to "Edit", edit_inventory_path(@inventory), class:"btn btn-secondary" %> 
+  <%= link_to "Back to Inventories", inventories_path, class: "btn btn-dark" %>
+  <br>
+  <br>
+  <%= button_to "Delete", @inventory, method: :delete, class:"btn btn-danger btn-sm" %>
+</div>
+

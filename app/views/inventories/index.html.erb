@@ -1,0 +1,32 @@
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr class="table-success">
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Type</th>
+      <th>Vendor</th>
+      <th></th>
+      
+    </tr>
+  </thead>  
+  
+  <br>
+
+  <tbody class="table-group-divider">
+    <% @inventories.each do |inventory| %>  
+      <tr>
+        <td><%= inventory.product_name %></td>
+        <td><%= inventory.price %></td>
+        <td><%= inventory.quantity %></td>
+        <td><%= inventory.type%></td>
+        <td><%= inventory.vendor %></td>
+        <td><%= link_to 'Show', inventory, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_inventory_path, class:"btn btn-secondary" %>
